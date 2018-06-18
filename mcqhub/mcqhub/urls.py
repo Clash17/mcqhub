@@ -19,6 +19,7 @@ from mainapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', views.UserViewSet.as_view()),
     path('login/', views.loginView),
-    path('submit/', views.submitData),
+    path('submit', views.takeInput),
 ]

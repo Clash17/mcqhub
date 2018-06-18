@@ -1,13 +1,34 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+import firebase_admin
+from firebase_admin import credentials
+
+from .models import *
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializers import *
+
+cred = credentials.Certificate('canteen-9ea38-firebase-adminsdk-m2rto-0c04eec47d.json')
+default_app = firebase_admin.initialize_app(cred)
+
 
 # Create your views here.
 def loginView(request):
     return render(request, "login.html")
 
 
-def takeinput(request):
-    mno = request.post["mobilenum"]
+def takeInput(request):
+    mno = request.POST["mobilenum"]
     print(mno)
     return HttpResponse("hello")
+
+
+class UserViewSet(APIView):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    def get(self,request):
+        queryset = Mcqdata.objects.all()
+        serializer_class = McqSerializer(queryset, many=True)
+        return Response(serializer_class.data)
