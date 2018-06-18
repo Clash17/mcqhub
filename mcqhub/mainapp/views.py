@@ -9,8 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
 
-cred = credentials.Certificate('canteen-9ea38-firebase-adminsdk-m2rto-0c04eec47d.json')
-default_app = firebase_admin.initialize_app(cred)
+
 
 
 # Create your views here.
